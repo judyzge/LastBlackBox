@@ -21,10 +21,10 @@ class custom(torch.nn.Module):
             for param in backbone.features[index].parameters():
                 param.requires_grad = True
 
-        # Remove classifier (i.e. extract feature detection layers)
+        # Remove classifier (i.e. extract feature detection layers which is the last two layers if you examine backbone)
         self.features =  torch.nn.Sequential(*list(backbone.children())[:-2])
 
-        # Add a new prediction head
+        # Define new prediction head layers
         self.flatten = torch.nn.Flatten()
         self.linear1 = torch.nn.Linear(960*7*7,128)
         self.relu1 = torch.nn.ReLU(inplace=True)

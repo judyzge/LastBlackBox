@@ -15,9 +15,15 @@ importlib.reload(dataset)
 importlib.reload(model)
 
 # Specify paths
+<<<<<<< Updated upstream
 repo_path = '/home/kampff/NoBlackBoxes/repos/LastBlackBox'
 box_path = repo_path + '/boxes/learning/transfer/tracking/regression'
 output_path = box_path + '/_tmp'
+=======
+repo_path = '/Users/judy/Documents/GitHub/LastBlackBox'
+box_path = repo_path + '/boxes/learning/transfer/tracking'
+output_path = box_path + '/heatmap'
+>>>>>>> Stashed changes
 
 # Specify transforms for inputs
 preprocess = transforms.Compose([
@@ -65,7 +71,7 @@ print(f"Using {device} device")
 
 # Move model to device
 custom_model.to(device)
-summary(custom_model, (3, 224, 224))
+# summary(custom_model, (3, 224, 224), device=device)
 
 # Define training
 def train(dataloader, model, loss_fn, optimizer):
@@ -104,7 +110,7 @@ def test(dataloader, model, loss_fn):
     print(f"Test Error: \n Avg loss: {test_loss:>8f}, pixel_loss: {pixel_loss:>5f}\n")
 
 # TRAIN
-epochs = 25
+epochs = 100
 for t in range(epochs):
     print(f"Epoch {t+1}\n-------------------------------")
     train(train_dataloader, custom_model, loss_fn, optimizer)
@@ -139,7 +145,7 @@ for i in range(9):
     predicted_heatmap = cv2.resize(output, (224,224))
     plt.imshow(image, alpha=0.75)
     plt.imshow(predicted_heatmap, alpha=0.5)
-#    plt.imshow(target_heatmap, alpha=0.5)
+    plt.imshow(target_heatmap, alpha=0.5)
 plt.show()
 
 

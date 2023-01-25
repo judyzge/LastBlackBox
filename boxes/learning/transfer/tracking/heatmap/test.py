@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import torch
 from torchvision import transforms
 from pycocotools.coco import COCO
+import cv2
 
 # Locals libs
 import model
@@ -14,9 +15,10 @@ importlib.reload(dataset)
 importlib.reload(model)
 
 # Specify paths
-repo_path = '/home/kampff/NoBlackBoxes/repos/OtherBlackBoxes'
-box_path = repo_path + '/boxes/ai/tracking/nose/heatmap'
-model_path = box_path + '/_tmp/custom.pt'
+repo_path = '/Users/judy/Documents/GitHub/LastBlackBox'
+box_path = repo_path + '/boxes/learning/transfer/tracking'
+model_path = box_path + '/heatmap/custom.pt'
+
 
 # Specify transforms for inputs
 preprocess = transforms.Compose([
@@ -78,7 +80,7 @@ preprocess = transforms.Compose([
 
 # Test on movie snaps
 import cv2
-video_path = repo_path + '/boxes/ai/tracking/_data/nose.mp4'
+video_path = repo_path + '/boxes/learning/transfer/tracking/_data/nose.mp4'
 cap = cv2.VideoCapture(video_path)
 num_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
@@ -98,9 +100,11 @@ for i in range(9):
     output = np.squeeze(output)
     predicted_heatmap = cv2.resize(output, (224,224))
 
-    plt.imshow(rgb, alpha=0.75)
+    plt.imshow(rgb, alpha=0.8)
     plt.imshow(predicted_heatmap, alpha=0.5)
 plt.show()
+
+
 
 cap.release()
 

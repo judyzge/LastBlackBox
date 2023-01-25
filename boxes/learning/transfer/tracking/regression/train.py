@@ -14,17 +14,24 @@ importlib.reload(dataset)
 importlib.reload(model)
 
 # Specify paths
+<<<<<<< Updated upstream
 repo_path = '/home/kampff/NoBlackBoxes/repos/LastBlackBox'
 box_path = repo_path + '/boxes/learning/transfer/tracking/regression'
 output_path = box_path + '/_tmp'
+=======
+repo_path = '/Users/judy/Documents/GitHub/LastBlackBox'
+box_path = repo_path + '/boxes/learning/transfer/tracking'
+output_path = box_path + '/regression'
+>>>>>>> Stashed changes
 
 # Specify transforms for inputs
+# Normalise the images so that the variance = 1, the values are hard-coded but it should be the mean/std of all the pixels in the image
 preprocess = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-# Prepare datasets
+# Prepare datasets, define how much of the dataset is training dataset, and the rest is test datatset, 80% training
 train_data, test_data = dataset.prepare('train2017', 0.8)
 
 # Create datasets

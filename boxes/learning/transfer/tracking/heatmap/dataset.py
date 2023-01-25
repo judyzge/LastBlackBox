@@ -68,9 +68,9 @@ def prepare(dataset_name, split):
 def filter(dataset_name):
 
     # Specify paths
-    coco_folder = '/home/kampff/Dropbox/Voight-Kampff/Technology/Datasets/coco'
-    annotations_path = coco_folder + '/annotations/person_keypoints_' + dataset_name + '.json'
-    images_folder = coco_folder + '/' + dataset_name
+    coco_folder = '/Users/judy/Documents/GitHub/OtherBlackBoxes/boxes/ai/_tmp/venv/ai'
+    annotations_path = coco_folder + '/annotations/person_keypoints_train2017.json'
+    images_folder = coco_folder + '/train2017'
 
     # Initialize the COCO API
     coco=COCO(annotations_path)

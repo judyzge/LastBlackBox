@@ -4,17 +4,26 @@ from pycocotools.coco import COCO
 from PIL import Image
 
 # Specify paths
+<<<<<<< Updated upstream
 coco_folder = '/home/kampff/Dropbox/Voight-Kampff/Technology/Datasets/coco'
 dataset_name = 'val2017'
 annotations_path = coco_folder + '/annotations/person_keypoints_' + dataset_name + '.json'
 images_path = coco_folder + '/val2017'
+=======
+coco_folder = '/Users/judy/Documents/GitHub/OtherBlackBoxes/boxes/ai/_tmp/venv/ai'
+dataset_name = 'train2017'
+annotations_path = coco_folder + '/annotations/person_keypoints_train2017.json'
+images_path = coco_folder + '/train2017'
+>>>>>>> Stashed changes
 
 # Initialize the COCO API
 coco=COCO(annotations_path)
 
 # Select all people: category and image IDs
 cat_ids = coco.getCatIds(catNms=['person'])
-img_ids = coco.getImgIds(catIds=cat_ids )
+img_ids = coco.getImgIds(catIds=cat_ids)
+print(img_ids)
+
 
 # Keypolint labels
 keypoint_labels = ['nose', 'left eye', 'right eye', 'left ear', 'right ear', 'left shoulder', 'right shoulder', 'left elbow', 'right elbow', 'left wrist', 'right wrist', 'left hip', 'right hip', 'left knee', 'right knee', 'left ankle', 'right ankle']
@@ -27,7 +36,7 @@ for img in img_ids:
 
     # Individuals
     if len(annotations) > 1:
-        continue
+        continue            #continue means, dont bother running the rest of the code, start another loop
 
     # Not too small
     if (annotations[0]['area'] < 10000):

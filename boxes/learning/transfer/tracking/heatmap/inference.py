@@ -7,17 +7,25 @@ from torchvision import transforms
 # Specify video or camera
 live_capture = True
 if live_capture:
-    width = 640
-    height = 480
+    width = 1280
+    height = 720
 else:
     width = 512
     height = 512
 
 # Specify paths
+<<<<<<< Updated upstream
 repo_path = '/home/kampff/NoBlackBoxes/repos/LastBlackBox'
 box_path = repo_path + '/boxes/learning/transfer/tracking/heatmap'
 model_path = box_path + '/_tmp/previous.pt'
 video_path = repo_path + '/boxes/ai/tracking/_data/nose.mp4'
+=======
+repo_path = '/Users/judy/Documents/GitHub/LastBlackBox'
+box_path = repo_path + '/boxes/learning/transfer/tracking'
+model_path = box_path + '/heatmap/custom.pt'
+video_path = box_path + '/_data/nose.mp4'
+
+>>>>>>> Stashed changes
 
 # Load model
 custom_model = model.custom()
@@ -48,7 +56,7 @@ cv2.namedWindow('tracking')
 
 # Save?
 save = True
-video_path = box_path + '/_tmp/example.avi'
+video_path = box_path + '/heatmap/example.avi'
 if save:
     # Open output video
     video = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc('F','M','P','4'), 30, (width, height))
@@ -72,6 +80,7 @@ while(True):
     # Preprocess (covert to tensor and normalize, then add bacth dimension)
     input = preprocess(rgb)
     input = torch.unsqueeze(input, 0)
+    input.size
 
     # Send to GPU
     input = input.to(device)
@@ -97,7 +106,7 @@ while(True):
         video.write(frame)
 
     # Wait for a keypress, and quit if 'q'
-    if cv2.waitKey(10) & 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 # Release the caputre
