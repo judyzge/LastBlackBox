@@ -18,8 +18,10 @@ pip install accelerate scipy
 import torch
 from diffusers import StableDiffusionPipeline, EulerDiscreteScheduler
 
+
 # Specify model
 model_id = "stabilityai/stable-diffusion-2-1"
+
 
 # Cache scheduler
 scheduler = EulerDiscreteScheduler.from_pretrained(model_id, subfolder="scheduler")

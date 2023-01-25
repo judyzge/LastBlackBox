@@ -9,7 +9,7 @@ box_path = repo_path + '/boxes/intelligence/transformers/diffusion'
 output_path = box_path
 
 # Check for GPU (also works for AMD GPUs using ROCm) or, of course, CPUs
-gpu_available = torch.backends.mps.is_available()
+gpu_available = torch.cuda.is_available()
 print("Is the GPU available? {0}".format(gpu_available))
 
 # Set model ID
@@ -26,7 +26,7 @@ else:
 
 # Send models to device
 if(gpu_available):
-    pipe = pipe.to("mps")
+    pipe = pipe.to("cuda")
 else:
     pipe = pipe.to("cpu")
 
@@ -65,7 +65,7 @@ timesteps = pipe.scheduler.timesteps    #schedules 50 steps of noise adding
 # Specify random generator seed
 seed = 3
 if(gpu_available):
-    generator = torch.Generator("mps").manual_seed(seed)
+    generator = torch.Generator("cuda").manual_seed(seed)
 else:
     generator = torch.Generator("cpu").manual_seed(seed)
 
