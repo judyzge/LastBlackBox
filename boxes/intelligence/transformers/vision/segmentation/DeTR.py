@@ -2,10 +2,11 @@ import math
 import matplotlib.pyplot as plt
 from PIL import Image
 from transformers import DetrFeatureExtractor, DetrForSegmentation
+from tkinter import filedialog as fd
 
 # Specify paths
-repo = '/home/kampff/NoBlackBoxes/repos/LastBlackBox'
-image_path = repo + '/boxes/intelligence/transformers/vision/_data/zoom_lesson.jpg'
+repo_path = fd.askdirectory()
+image_path = repo_path + '/boxes/intelligence/transformers/vision/_data/zoom_lesson.jpg'
 image = Image.open(image_path)
 
 # Display test image

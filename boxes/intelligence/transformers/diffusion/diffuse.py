@@ -2,13 +2,14 @@ import torch
 import matplotlib.pyplot as plt
 from diffusers import StableDiffusionPipeline, EulerDiscreteScheduler
 
+
 # Specify paths
-repo_path = '/home/kampff/NoBlackBoxes/repos/LastBlackBox'
+repo_path = '/Users/judy/Documents/GitHub/LastBlackBox'
 box_path = repo_path + '/boxes/intelligence/transformers/diffusion'
-output_path = box_path + '/_tmp/steps'
+output_path = box_path
 
 # Check for GPU (also works for AMD GPUs using ROCm) or, of course, CPUs
-gpu_available = torch.cuda.is_available()
+gpu_available = torch.backends.mps.is_available()
 print("Is the GPU available? {0}".format(gpu_available))
 
 # Set model ID
@@ -25,7 +26,7 @@ else:
 
 # Send models to device
 if(gpu_available):
-    pipe = pipe.to("cuda")
+    pipe = pipe.to("mps")
 else:
     pipe = pipe.to("cpu")
 
@@ -33,7 +34,7 @@ else:
 pipe.enable_attention_slicing()
 
 # Set prompts
-positive_prompt = 'photorealistic rendering of a garden of transparent flowers with detailed lighting effects and beautiful optical reflections and refractions, 4K, high definition'
+positive_prompt = 'a beautiful beach in Thailand with a disney themed park in the background'
 #negative_prompt = ''
 negative_prompt = 'out of frame, lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature,'
 
@@ -47,9 +48,9 @@ width = 768
 pipe.check_inputs(positive_prompt, height, width, 1)
 
 # Define call parameters
-batch_size = 1
-device = pipe._execution_device
-guidance_scale = 9.5 # greater than 1 means do classifier free guidance
+batch_size = 1       #run the model and generate 1 image at a time
+device = pipe._execution_device         
+guidance_scale = 9.5 # greater than 1 means do classifier free guidance, how favour we are to that
 do_classifier_free_guidance = True
 
 # Encode input prompt
@@ -57,14 +58,14 @@ num_images_per_prompt = 1
 text_embeddings = pipe._encode_prompt(positive_prompt, device, num_images_per_prompt, do_classifier_free_guidance, negative_prompt)
 
 # Prepare timesteps
-num_inference_steps = 50
+num_inference_steps = 10    #50 diffusion steps
 pipe.scheduler.set_timesteps(num_inference_steps, device=device)
-timesteps = pipe.scheduler.timesteps
+timesteps = pipe.scheduler.timesteps    #schedules 50 steps of noise adding
 
 # Specify random generator seed
-seed = 42
+seed = 3
 if(gpu_available):
-    generator = torch.Generator("cuda").manual_seed(seed)
+    generator = torch.Generator("mps").manual_seed(seed)
 else:
     generator = torch.Generator("cpu").manual_seed(seed)
 

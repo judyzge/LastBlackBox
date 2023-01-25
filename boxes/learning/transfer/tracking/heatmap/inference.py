@@ -14,18 +14,11 @@ else:
     height = 512
 
 # Specify paths
-<<<<<<< Updated upstream
-repo_path = '/home/kampff/NoBlackBoxes/repos/LastBlackBox'
-box_path = repo_path + '/boxes/learning/transfer/tracking/heatmap'
-model_path = box_path + '/_tmp/previous.pt'
-video_path = repo_path + '/boxes/ai/tracking/_data/nose.mp4'
-=======
 repo_path = '/Users/judy/Documents/GitHub/LastBlackBox'
 box_path = repo_path + '/boxes/learning/transfer/tracking'
 model_path = box_path + '/heatmap/custom.pt'
 video_path = box_path + '/_data/nose.mp4'
 
->>>>>>> Stashed changes
 
 # Load model
 custom_model = model.custom()
